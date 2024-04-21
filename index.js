@@ -1,42 +1,42 @@
-const express = require("express");
+const config = require("config");
 const mongoose = require("mongoose");
-const dotenv = require("dotenv");
-const passport = require("passport");
-const session = require("express-session");
-const MongoStore = require("connect-mongo");
-require("./config/passport")(passport);
+const fs = require("fs");
+const path = require("path");
+const { setupModels } = require("./src/models/index");
 
-const app = express();
-const PORT = process.env.PORT || 3000;
-dotenv.config({ path: "./config/config.env" });
+const connectDB = async () => {
+  const url = config.DB.URI;
+  try {
+    mongoose.set("strictQuery", false);
+    mongoose.connect(url, {
+      useNewUrlParser: true,
+      useUnifiedTopology: true,
+    });
+    console.log("Database connected");
+    setupModels();
+  } catch (error) {
+    console.log(error.message);
+    process.exit(1);
+  }
+  const dbConnection = mongoose.connection;
 
-// connect to Database
-mongoose.connect(process.env.MONGO_URI, {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-});
+  dbConnection.on("error", (error) => {
+    console.log(error.message);
+  });
+};
 
-app.use(express.static("public"));
-app.use(
-  session({
-    secret: "keyboard cat",
-    resave: false,
-    saveUninitialized: false,
-    store: MongoStore.create({ mongoUrl: process.env.MONGO_URI }),
-  })
-);
-app.set("view engine", "ejs");
+const bootstrap = async () => {
+  try {
+    // connect to Database
+    await connectDB();
+    config.APP.JWT_PUBLIC_KEY = fs.readFileSync(
+      path.join(__dirname, "./config/public.key"),
+      "utf-8"
+    );
+    require("./app");
+  } catch (error) {
+    console.log(error);
+  }
+};
 
-app.use(express.urlencoded({ extended: true }));
-// Make the API use JSON
-app.use(express.json({ limit: "15mb" }));
-// Passport middleware
-app.use(passport.initialize());
-app.use(passport.session());
-
-app.use(require("./routes/index"));
-app.use("/auth", require("./routes/auth"));
-
-app.listen(PORT, (_) => {
-  console.log(`App listening on port: ${PORT}`);
-});
+bootstrap();

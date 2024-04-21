@@ -4,19 +4,11 @@ const schemaDefinition = {
   firstName: {
     type: String,
     trim: true,
-    required: true,
     minLength: 1
   },
   lastName: {
     type: String,
     trim: true,
-    required: true,
-    minLength: 1
-  },
-  displayName: {
-    type: String,
-    trim: true,
-    required: true,
     minLength: 1
   },
   emailId: {
@@ -39,7 +31,7 @@ const schemaDefinition = {
   googleId: {
     type: String,
     trim: true,
-    required: true
+    required: false
   }
 }
 
@@ -47,11 +39,9 @@ const schemaOptions = {
   timestamps: true,
   toJSON: {
     transform: function (_doc, ret) {
-      delete ret._id
       delete ret.__v
       delete ret.createdAt
       delete ret.updatedAt
-      delete ret.googleId
     }
   }
 }
@@ -60,6 +50,4 @@ const profileSchema = mongoose.Schema(schemaDefinition, schemaOptions);
 
 profileSchema.index({"location": "2dsphere"});
 
-const Profile = mongoose.model('profile', profileSchema);
-
-exports.Profile = Profile
+module.exports = profileSchema;
