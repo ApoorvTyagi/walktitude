@@ -5,11 +5,16 @@ const cors = require("cors");
 const app = express();
 const PORT = config.APP.PORT || 3000;
 
-const corsOptions = {
-  origin: ["https://walktitude.web.app", "http://localhost:3000"]
+const corsConfig = {
+  credentials: true,
+  origin: (origin, callback) => {
+      return callback(null, true);
+  },
 };
 
-// app.use(cors(corsOptions));
+app.options("*", cors(corsConfig));
+
+app.use(cors(corsConfig));
 
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json({ limit: "15mb" }));
