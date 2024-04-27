@@ -5,53 +5,50 @@ const schemaDefinition = {
     type: String,
     trim: true,
     required: true,
-    minLength: 1
+    minLength: 1,
   },
   lastName: {
     type: String,
     trim: true,
     required: true,
-    minLength: 1
-  },
-  displayName: {
-    type: String,
-    trim: true,
-    required: true,
-    minLength: 1
+    minLength: 1,
   },
   emailId: {
     type: String,
     trim: true,
-    required: false
+    required: true,
+    unique: true,
   },
   location: {
     type: {
-        type: String,
-        required: false
+      type: String,
+      required: false,
     },
-    coordinates: [ Number ],
+    coordinates: [Number],
   },
   image: {
     type: String,
     trim: true,
-    required: false
+    required: false,
   },
-  googleId: {
-    type: String,
-    trim: true,
-    required: true
+  is_premium_user: {
+    type: Boolean,
+    index: true,
+    default: false,
+  },
+  is_ghost_mode: {
+    type: Boolean,
+    default: false,
   }
-}
+};
 
 const schemaOptions = {
   timestamps: true,
   toJSON: {
     transform: function (_doc, ret) {
-      delete ret._id
       delete ret.__v
       delete ret.createdAt
       delete ret.updatedAt
-      delete ret.googleId
     }
   }
 }
@@ -60,6 +57,4 @@ const profileSchema = mongoose.Schema(schemaDefinition, schemaOptions);
 
 profileSchema.index({"location": "2dsphere"});
 
-const Profile = mongoose.model('profile', profileSchema);
-
-exports.Profile = Profile
+module.exports = profileSchema;
