@@ -7,7 +7,7 @@ const PORT = config.APP.PORT || 3000;
 
 const corsConfig = {
   credentials: true,
-  origin: (origin, callback) => {
+  origin: (_origin, callback) => {
       return callback(null, true);
   },
 };
