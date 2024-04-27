@@ -31,6 +31,15 @@ const schemaDefinition = {
     trim: true,
     required: false,
   },
+  is_premium_user: {
+    type: Boolean,
+    index: true,
+    default: false,
+  },
+  is_ghost_mode: {
+    type: Boolean,
+    default: false,
+  }
 };
 
 const schemaOptions = {

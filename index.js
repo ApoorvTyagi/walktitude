@@ -7,6 +7,7 @@ const { setupModels } = require("./src/models/index");
 const connectDB = async () => {
   const url = config.DB.URI;
   try {
+    // mongoose.set("debug", true);
     mongoose.set("strictQuery", false);
     mongoose.connect(url, {
       useNewUrlParser: true,
