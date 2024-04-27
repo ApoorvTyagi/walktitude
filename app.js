@@ -6,7 +6,7 @@ const app = express();
 const PORT = config.APP.PORT || 3000;
 
 const corsOptions = {
-  origin: "http://localhost:8081",
+  origin: "https://walktitude.web.app",
 };
 
 app.use(cors(corsOptions));
