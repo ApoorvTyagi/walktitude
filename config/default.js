@@ -3,6 +3,7 @@ const config = {
     NODE_ENV: "development",
     PORT: 3000,
     JWT_PUBLIC_KEY: '',
+    JWT_PRIVATE_KEY: '',
     NEAREST_WALKER_MAX_DISTANCE_FOR_SEARCH: 500,
   },
   DB: {

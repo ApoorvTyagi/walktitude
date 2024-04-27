@@ -6,6 +6,4 @@ router.get("/user", authenticationMiddleware(), getUserInfo);
 
 router.post("/login", logIn);
 
-router.post("/sign-up", signUp);
-
 module.exports = router;

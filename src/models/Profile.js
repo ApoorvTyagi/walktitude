@@ -4,36 +4,34 @@ const schemaDefinition = {
   firstName: {
     type: String,
     trim: true,
-    minLength: 1
+    required: true,
+    minLength: 1,
   },
   lastName: {
     type: String,
     trim: true,
-    minLength: 1
+    required: true,
+    minLength: 1,
   },
   emailId: {
     type: String,
     trim: true,
-    required: false
+    required: true,
+    unique: true,
   },
   location: {
     type: {
-        type: String,
-        required: false
+      type: String,
+      required: false,
     },
-    coordinates: [ Number ],
+    coordinates: [Number],
   },
   image: {
     type: String,
     trim: true,
-    required: false
+    required: false,
   },
-  googleId: {
-    type: String,
-    trim: true,
-    required: false
-  }
-}
+};
 
 const schemaOptions = {
   timestamps: true,

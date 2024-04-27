@@ -33,6 +33,10 @@ const bootstrap = async () => {
       path.join(__dirname, "./config/public.key"),
       "utf-8"
     );
+    config.APP.JWT_PRIVATE_KEY = fs.readFileSync(
+      path.join(__dirname, "./config/private.key"),
+      "utf-8"
+    );
     require("./app");
   } catch (error) {
     console.log(error);
