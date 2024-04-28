@@ -1,9 +1,11 @@
 const _ = require('lodash');
 const { models } = require("../../../models/index");
-const boom = require('@hapi/boom');
+const { validateGhostMode, updateLastActivityTime } = require('./walker.util');
+const logger = require('../../../util/logger/index')
 
 async function fetchNearestWalker(userId, coordinates, maxDistance) {
   const { Profile } = models;
+  updateLastActivityTime(userId);
   return Profile.find({
     _id: { $ne: userId },
     is_ghost_mode: false,
@@ -19,7 +21,7 @@ async function fetchNearestWalker(userId, coordinates, maxDistance) {
   })
     .exec()
     .catch((error) => {
-      console.log(error);
+      logger.error(`Error in fetchNearestWalker: ${error}`);
     });
 }
 
@@ -37,7 +39,7 @@ async function updateLocation(longitude, latitude, userId) {
   )
     .exec()
     .catch((error) => {
-      console.log(error);
+      logger.error(`Error in updateLocation: ${error}`);
     });
 }
 
@@ -70,17 +72,6 @@ async function patchUser(userId, updatedPayload) {
   await validateGhostMode(userId, updatedPayload.is_ghost_mode);
   const { Profile } = models;
   return Profile.findByIdAndUpdate(userId, { $set: { ...updatedPayload } }, { new: true });
-}
-
-async function validateGhostMode(userId, is_ghost_mode) {
-  if (!_.isNil(is_ghost_mode) && is_ghost_mode) {
-    const { Profile } = models;
-    const user = await Profile.findById(userId);
-    console.log(user)
-    if (!user?.is_premium_user) {
-      throw boom.forbidden("Only premium users are allowed to use ghost mode");
-    }
-  }
 }
 
 module.exports = {

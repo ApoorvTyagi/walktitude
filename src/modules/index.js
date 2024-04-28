@@ -3,6 +3,8 @@ const fs = require("fs");
 const path = require("path");
 const router = express.Router();
 
+const logger = require('../util/logger/index');
+
 const isDirectory = (folder, source) => {
   const checkDir = fs.lstatSync(path.join(folder, source)).isDirectory();
   return checkDir;
@@ -19,7 +21,7 @@ const setupRoutes = () => {
         .forEach((module) => {
           const routeFilePath = `./${version}/${module}/${module}.route`;
           moduleRouter.use(`/${module}`, require(routeFilePath));
-          console.log(`Loaded API: ${version}/${module}`);
+          logger.info(`Loaded API: ${version}/${module}`);
         });
       router.use(`/api/${version}`, moduleRouter);
     });

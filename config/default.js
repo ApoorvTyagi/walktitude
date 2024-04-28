@@ -7,6 +7,8 @@ const config = {
     NEAREST_WALKER_MAX_DISTANCE_FOR_SEARCH: 500,
   },
   DB: {
+    LOCAL_URI:
+      "mongodb://localhost:27017/walktitude?readPreference=primary&ssl=false&directConnection=true",
     URI: "mongodb+srv://admin:admin@cluster0.ordawt9.mongodb.net/walktitude?retryWrites=true&w=majority",
   },
 };

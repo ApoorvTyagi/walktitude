@@ -1,6 +1,7 @@
 const config = require("config");
 const jwt = require("jsonwebtoken");
 const boom = require("@hapi/boom");
+const logger = require("../logger/index");
 
 const validateToken = (token) => {
   const secret = config.APP.JWT_PUBLIC_KEY;
@@ -20,8 +21,8 @@ const mintToken = (payload) => {
       expiresIn: "7 days",
     });
   } catch (error) {
-    console.log(error);
-    throw boom.badData("Unable to generate token.");
+    logger.error(`Unable to generate token: ${error}`);
+    throw boom.badData("Unable to generate token");
   }
   return token;
 };

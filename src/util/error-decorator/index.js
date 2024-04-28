@@ -1,8 +1,9 @@
+const logger = require('../logger/index')
 const errorDecorator = (fn) => async (req, res, next) => {
   try {
     return await fn(req, res, next);
   } catch (error) {
-    console.log(error)
+    logger.error(`An unexpected error has occured: ${error}`)
     if (error.output?.statusCode < 500) {
       return res.status(error.output.statusCode).json({
         error: {

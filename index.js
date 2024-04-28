@@ -3,26 +3,27 @@ const mongoose = require("mongoose");
 const fs = require("fs");
 const path = require("path");
 const { setupModels } = require("./src/models/index");
+const logger = require('./src/util/logger/index')
 
 const connectDB = async () => {
   const url = config.DB.URI;
   try {
-    // mongoose.set("debug", true);
+    mongoose.set("debug", true);
     mongoose.set("strictQuery", false);
     mongoose.connect(url, {
       useNewUrlParser: true,
       useUnifiedTopology: true,
     });
-    console.log("Database connected");
+    logger.info("Database connected");
     setupModels();
   } catch (error) {
-    console.log(error.message);
+    logger.error(error.message);
     process.exit(1);
   }
-  const dbConnection = mongoose.connection;
 
+  const dbConnection = mongoose.connection;
   dbConnection.on("error", (error) => {
-    console.log(error.message);
+    logger.error(error.message);
   });
 };
 
@@ -40,7 +41,7 @@ const bootstrap = async () => {
     );
     require("./app");
   } catch (error) {
-    console.log(error);
+    logger.error(`Error in bootstrap: ${error}`);
   }
 };
 

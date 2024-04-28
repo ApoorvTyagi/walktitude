@@ -39,6 +39,10 @@ const schemaDefinition = {
   is_ghost_mode: {
     type: Boolean,
     default: false,
+  },
+  last_activity: {
+    type: Date,
+    required: false,
   }
 };
 
