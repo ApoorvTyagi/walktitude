@@ -21,11 +21,11 @@ const logger = createLogger({
     }),
   ],
 });
-logger.successHandler = morgan('info', {
+logger.successHandler = morgan('combined', {
   skip: (_req, res) => res.statusCode >= 400,
   stream: { write: (message) => logger.info(message) },
 });
-logger.errorHandler = morgan('info', {
+logger.errorHandler = morgan('combined', {
   skip: (_req, res) => res.statusCode < 400,
   stream: { write: (message) => logger.error(message) },
 });
