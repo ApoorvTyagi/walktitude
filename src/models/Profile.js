@@ -40,10 +40,18 @@ const schemaDefinition = {
     type: Boolean,
     default: false,
   },
+  walk: {
+    is_active: {
+      type: Boolean,
+      default: false,
+      index: true,
+    },
+    active_with_users: [mongoose.Types.ObjectId],
+  },
   last_activity: {
     type: Date,
     required: false,
-  }
+  },
 };
 
 const schemaOptions = {

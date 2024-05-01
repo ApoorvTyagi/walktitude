@@ -7,9 +7,7 @@ const schemaDefinition = {
     unique: true,
     required: true,
   },
-  invitees: {
-    type: Array,
-  },
+  invitees: [mongoose.Types.ObjectId],
 };
 
 const schemaOptions = {

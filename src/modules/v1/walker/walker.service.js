@@ -9,6 +9,7 @@ async function fetchNearestWalker(userId, coordinates, maxDistance) {
   return Profile.find({
     _id: { $ne: userId },
     is_ghost_mode: false,
+    "walk.is_active": false,
     location: {
       $near: {
         $geometry: {
