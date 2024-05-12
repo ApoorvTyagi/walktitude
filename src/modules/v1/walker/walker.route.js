@@ -3,7 +3,6 @@ const authenticationMiddleware = require("../../../middlewares/auth.middleware")
 const {
   updateLocation,
   fetchNearestWalker,
-  postNewUser,
   patchUser,
   getUser,
 } = require("./walker.controller");

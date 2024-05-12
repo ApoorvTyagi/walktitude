@@ -60,7 +60,6 @@ async function getUser(userId) {
 module.exports = {
   fetchNearestWalker,
   updateLocation,
-  postNewUser,
   patchUser,
   getUser,
 };

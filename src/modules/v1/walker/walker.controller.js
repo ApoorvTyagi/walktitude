@@ -48,7 +48,6 @@ const getUser = errorDecorator(async ( req, res ) => {
 module.exports = {
   updateLocation,
   fetchNearestWalker,
-  postNewUser,
   patchUser,
   getUser,
 };
