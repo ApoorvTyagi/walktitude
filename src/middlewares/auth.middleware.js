@@ -17,9 +17,9 @@ function authenticationMiddleware() {
       throw boom.unauthorized("Invalid Token");
     }
     // TODO: REMOVE THIS, Only For Debugging
-    req.headers["x-user-details"] = {
-      userId: "66251505e324473a611b4d50",
-    };
+    // req.headers["x-user-details"] = {
+    //   userId: "66251505e324473a611b4d50",
+    // };
     return next();
   });
 }

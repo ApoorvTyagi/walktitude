@@ -3,7 +3,7 @@ const jwt = require("jsonwebtoken");
 const boom = require("@hapi/boom");
 const logger = require("../logger/index");
 
-const validateToken = (token) => {
+const validateToken = ({ token }) => {
   const secret = config.APP.JWT_PUBLIC_KEY;
   try {
     return jwt.verify(token, secret, { algorithm: "RS256" });
