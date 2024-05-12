@@ -6,7 +6,7 @@ const postSwipeRightSchema = joi.object({
     .keys({
       "x-user-details": joi.object().keys({
         userId: joi.string().trim().length(24).required().label("userId"),
-      }),
+      }).required(),
     }),
   body: joi.object().keys({
     inviteeId: joi.string().trim().length(24).required().label("inviteeId"),
