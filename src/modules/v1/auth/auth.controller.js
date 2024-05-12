@@ -1,3 +1,4 @@
+const config = require('config');
 const _ = require('lodash');
 const errorDecorator = require("../../../util/error-decorator");
 const service = require("./auth.service");
@@ -14,7 +15,7 @@ const logIn = errorDecorator(async (req, res) => {
   res.setHeader(
     "Set-Cookie",
     `token=${result.token}; path=/; expires=${
-      Date.now() + 7 * 12 * 60 * 60 * 1000
+      Date.now() + config.APP.FOUR_DAYS_IN_SECONDS * 1000
     }; Secure; SameSite=None`
   );
   res.send(_.omit(result, ['__v', 'createdAt', 'updatedAt']));

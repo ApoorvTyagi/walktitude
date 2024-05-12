@@ -40,6 +40,11 @@ const schemaDefinition = {
     type: Boolean,
     default: false,
   },
+  web_device_token: {
+    type: String,
+    trim: true,
+    required: false,
+  },
   walk: {
     is_active: {
       type: Boolean,
