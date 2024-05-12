@@ -19,7 +19,8 @@ const swipeRight = errorDecorator(async (req, res) => {
 });
 
 const request = errorDecorator(async (req, res) => {
-  const { action, userId, invitedBy } = req.body;
+  const { userId } = req.headers["x-user-details"];
+  const { action, invitedBy } = req.body;
   if (_.isFunction(functionMap[action])) {
     const result = await functionMap[action](userId, invitedBy);
     return res.send(result);

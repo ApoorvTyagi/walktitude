@@ -11,6 +11,6 @@ router.post(
   swipeRight
 );
 
-router.post("/request", request);
+router.post("/request", authenticationMiddleware(), request);
 
 module.exports = router;
