@@ -35,10 +35,10 @@ async function pushNotification(user, invitee) {
             title: "Let's Take a Stroll Together 🧑‍🤝‍🧑",
             body: `Hey ${invitee.firstName}, fancy a walk together with ${user.firstName} to catch up and enjoy the outdoors?`,
             image: "",
-            webpush: {
-              fcm_options: {
-                link: `https://walktitude.web.app/invite?partner_id=${user._id}`,
-              },
+          },
+          webpush: {
+            fcm_options: {
+              link: `https://walktitude.web.app/invite?partner_id=${user._id}`,
             },
           },
           token: `${invitee.web_device_token}`,
