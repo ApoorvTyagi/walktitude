@@ -24,26 +24,12 @@ function getAccessToken() {
   });
 }
 
-async function pushNotification(user, invitee) {
+async function pushNotification(user, invitee, reqBody) {
   const bearerToken = await getAccessToken();
   try {
     await axios.post(
       `${config.EXTERNAL_API_ENDPOINTS.PUSH_NOTIFICATION_URI}`,
-      {
-        message: {
-          notification: {
-            title: "Let's Take a Stroll Together 🧑‍🤝‍🧑",
-            body: `Hey ${invitee.firstName}, fancy a walk together with ${user.firstName} to catch up and enjoy the outdoors?`,
-            image: "",
-          },
-          webpush: {
-            fcm_options: {
-              link: `https://walktitude.web.app/invite?partner_id=${user._id}`,
-            },
-          },
-          token: `${invitee.web_device_token}`,
-        },
-      },
+      reqBody,
       {
         headers: {
           Authorization: `Bearer ${bearerToken}`,
