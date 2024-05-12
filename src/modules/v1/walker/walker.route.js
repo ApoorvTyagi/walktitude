@@ -3,6 +3,7 @@ const authenticationMiddleware = require("../../../middlewares/auth.middleware")
 const {
   updateLocation,
   fetchNearestWalker,
+  endWalk,
   patchUser,
   getUser,
 } = require("./walker.controller");
@@ -10,6 +11,8 @@ const {
 router.patch("/location", authenticationMiddleware(), updateLocation);
 
 router.get("/nearby", authenticationMiddleware(), fetchNearestWalker);
+
+router.post("/end-walk", authenticationMiddleware(), endWalk);
 
 router.get("/", authenticationMiddleware(), getUser);
 

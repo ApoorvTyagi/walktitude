@@ -57,9 +57,26 @@ async function getUser(userId) {
   return _.pick(profile, ['firstName', 'lastName', 'image']);
 }
 
+async function endWalk(userId) {
+  const { Profile } = models;
+  const empty_walk_object = {
+    is_active: false,
+    active_with_users: [],
+  };
+
+  const profile = await Profile.findByIdAndUpdate(userId, { $set: { walk: empty_walk_object } }).lean();
+  const promiseArray = profile.walk.active_with_users.map((walker) => {
+    Profile.findByIdAndUpdate(walker, { $set: { walk: empty_walk_object } });
+  });
+
+  await Promise.all(promiseArray);
+  return { is_success: true };
+}
+
 module.exports = {
   fetchNearestWalker,
   updateLocation,
   patchUser,
   getUser,
+  endWalk,
 };
