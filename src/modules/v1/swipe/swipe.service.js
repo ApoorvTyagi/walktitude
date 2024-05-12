@@ -2,14 +2,21 @@ const _ = require("lodash");
 const boom = require('@hapi/boom');
 const mongoose = require('mongoose');
 const { models } = require("../../../models/index");
+const { pushNotification } = require('../../../util/notification/index');
 
 async function swipeRight(userId, inviteeId) {
-  const { Invite } = models;
-  return await Invite.findOneAndUpdate(
-    { userId },
-    { $addToSet: { invitees: mongoose.Types.ObjectId(inviteeId) } },
-    { new: true, upsert: true }
-  );
+  const { Invite, Profile } = models;
+  const [user, invitee, result] = await Promise.all([
+    Profile.findById(userId),
+    Profile.findById(inviteeId),
+    Invite.findOneAndUpdate(
+      { userId },
+      { $addToSet: { invitees: mongoose.Types.ObjectId(inviteeId) } },
+      { new: true, upsert: true }
+    )
+  ])
+  pushNotification(user, invitee);
+  return result;
 }
 
 async function acceptRequest(userId, invitedBy) {
