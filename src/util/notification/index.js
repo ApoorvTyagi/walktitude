@@ -36,7 +36,7 @@ async function pushNotification(user, invitee) {
             image: "",
             webpush: {
               fcm_options: {
-                link: "https://walktitude.web.app/",
+                link: `https://walktitude.web.app/invite?partner_id=${user._id}`,
               },
             },
           },
