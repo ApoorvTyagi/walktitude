@@ -26,7 +26,6 @@ function getAccessToken() {
 
 async function pushNotification(user, invitee) {
   const bearerToken = await getAccessToken();
-  logger.debug(`AUTH => ${bearerToken}`);
   try {
     await axios.post(
       `${config.EXTERNAL_API_ENDPOINTS.PUSH_NOTIFICATION_URI}`,

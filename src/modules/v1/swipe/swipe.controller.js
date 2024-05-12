@@ -13,7 +13,6 @@ const functionMap = {
 const swipeRight = errorDecorator(async (req, res) => {
   const { userId } = req.headers["x-user-details"];
   const inviteeId = req.body.inviteeId;
-  logger.debug(req.body.token);
   const result = await service.swipeRight(userId, inviteeId);
   res.send(result);
 });
