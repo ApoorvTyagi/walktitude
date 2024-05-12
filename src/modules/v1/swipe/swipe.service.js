@@ -30,18 +30,18 @@ async function acceptRequest(userId, invitedBy) {
     Profile.findOneAndUpdate(
       { _id: userId },
       {
-        walk: {
-          is_active: true,
-          $addToSet: { active_with_users: mongoose.Types.ObjectId(invitedBy) },
+        $set: { "walk.is_active": true },
+        $addToSet: {
+          "walk.active_with_users": mongoose.Types.ObjectId(invitedBy),
         },
       }
     ),
     Profile.findOneAndUpdate(
       { _id: invitedBy },
       {
-        walk: {
-          is_active: true,
-          $addToSet: { active_with_users: mongoose.Types.ObjectId(userId) },
+        $set: { "walk.is_active": true },
+        $addToSet: {
+          "walk.active_with_users": mongoose.Types.ObjectId(userId),
         },
       }
     ),
