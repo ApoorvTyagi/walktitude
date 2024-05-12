@@ -15,7 +15,7 @@ const logIn = errorDecorator(async (req, res) => {
     "Set-Cookie",
     `token=${result.token}; path=/; expires=${
       Date.now() + 7 * 12 * 60 * 60 * 1000
-    }; Secure; SameSite=None`
+    }; SameSite=None`
   );
   res.send(_.omit(result, ['__v', 'createdAt', 'updatedAt', 'token']));
 });
