@@ -16,14 +16,6 @@ const fetchNearestWalker = errorDecorator(async(req, res) => {
   });
 });
 
-const postNewUser = errorDecorator(async(req, res) => {
-  const { firstName, lastName, emailId, latitude, longitude, image, googleId } = req.body;
-  const user = await service.postNewUser({ firstName, lastName, emailId, latitude, longitude, image, googleId });
-  res.send({
-    user,
-  });
-});
-
 const updateLocation = errorDecorator(async (req, res) => {
   const latitude = Number(req.body.latitude);
   const longitude = Number(req.body.longitude);

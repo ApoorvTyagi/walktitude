@@ -14,8 +14,6 @@ router.get("/nearby", authenticationMiddleware(), fetchNearestWalker);
 
 router.get("/", authenticationMiddleware(), getUser);
 
-router.post("/", authenticationMiddleware(), postNewUser);
-
 router.patch("/", authenticationMiddleware(), patchUser);
 
 module.exports = router;

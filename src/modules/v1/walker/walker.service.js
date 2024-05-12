@@ -44,30 +44,6 @@ async function updateLocation(longitude, latitude, userId) {
     });
 }
 
-async function postNewUser({
-  firstName,
-  lastName,
-  emailId,
-  latitude,
-  longitude,
-  image,
-  googleId,
-}) {
-  const { Profile } = models;
-  let location = {}
-  if (latitude && longitude) {
-    location = {
-        type: "Point",
-        coordinates: [parseFloat(longitude), parseFloat(latitude)]
-    }
-  }
-  const payload = _.omitBy(
-    { firstName, lastName, emailId, location, image, googleId },
-    _.isNil
-  );
-  return new Profile(payload).save();
-}
-
 async function patchUser(userId, updatedPayload) {
   updatedPayload = _.omitBy(updatedPayload, _.isNil);
   await validateGhostMode(userId, updatedPayload.is_ghost_mode);
