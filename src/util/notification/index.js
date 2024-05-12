@@ -15,7 +15,7 @@ function getAccessToken() {
     );
     jwtClient.authorize(function (err, tokens) {
       if (err) {
-        console.log(err);
+        logger.error(err);
         reject(err);
         return;
       }
@@ -25,8 +25,7 @@ function getAccessToken() {
 }
 
 async function pushNotification(user, invitee) {
-  const bearerToken = getAccessToken();
-  logger.debug(`URL => ${config.EXTERNAL_API_ENDPOINTS.PUSH_NOTIFICATION_URI}`);
+  const bearerToken = await getAccessToken();
   logger.debug(`AUTH => ${bearerToken}`);
   try {
     await axios.post(
