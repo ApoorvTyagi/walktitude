@@ -17,7 +17,7 @@ const logIn = errorDecorator(async (req, res) => {
       Date.now() + 7 * 12 * 60 * 60 * 1000
     }; Secure; SameSite=None`
   );
-  res.send(_.omit(result, ['__v', 'createdAt', 'updatedAt', 'token']));
+  res.send(_.omit(result, ['__v', 'createdAt', 'updatedAt']));
 });
 
 module.exports = {
