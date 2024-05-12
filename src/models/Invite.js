@@ -7,7 +7,12 @@ const schemaDefinition = {
     unique: true,
     required: true,
   },
-  invitees: [mongoose.Types.ObjectId],
+  invitees: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Profile",
+    },
+  ],
 };
 
 const schemaOptions = {

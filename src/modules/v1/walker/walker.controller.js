@@ -37,11 +37,12 @@ const updateLocation = errorDecorator(async (req, res) => {
 
 const patchUser = errorDecorator(async (req, res) => {
   const { userId } = req.headers["x-user-details"];
-  const { is_premium_user, is_ghost_mode, web_device_token } = req.body;
+  const { is_premium_user, is_ghost_mode, web_device_token, walk } = req.body;
   const result = await service.patchUser(userId, {
     is_premium_user,
     is_ghost_mode,
     web_device_token,
+    walk,
   });
   res.send(result);
 });
