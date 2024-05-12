@@ -13,7 +13,8 @@ const config = {
     URI: "mongodb+srv://admin:admin@cluster0.ordawt9.mongodb.net/walktitude?retryWrites=true&w=majority",
   },
   EXTERNAL_API_ENDPOINTS: {
-    PUSH_NOTIFICATION_URI: "",
+    PUSH_NOTIFICATION_URI:
+      "https://fcm.googleapis.com/v1/projects/mywalktitude/messages:send",
   },
 };
 

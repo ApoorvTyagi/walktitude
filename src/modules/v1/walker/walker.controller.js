@@ -46,9 +46,16 @@ const patchUser = errorDecorator(async (req, res) => {
   res.send(result);
 });
 
+const getUser = errorDecorator(async ( req, res ) => {
+  const userId = req.query.userId;
+  const result = await service.getUser(userId);
+  res.send(result);
+})
+
 module.exports = {
   updateLocation,
   fetchNearestWalker,
   postNewUser,
   patchUser,
+  getUser,
 };

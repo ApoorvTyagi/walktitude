@@ -1,6 +1,7 @@
 const config = require("config");
 const _ = require('lodash');
-const boom = require('@hapi/boom')
+const boom = require('@hapi/boom');
+const logger = require("../../../util/logger");
 const errorDecorator = require("../../../util/error-decorator");
 const service = require("./swipe.service");
 
@@ -12,7 +13,7 @@ const functionMap = {
 const swipeRight = errorDecorator(async (req, res) => {
   const { userId } = req.headers["x-user-details"];
   const inviteeId = req.body.inviteeId;
-  console.log(req.body.token);
+  logger.debug(req.body.token);
   const result = await service.swipeRight(userId, inviteeId);
   res.send(result);
 });

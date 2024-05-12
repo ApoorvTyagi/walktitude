@@ -75,9 +75,16 @@ async function patchUser(userId, updatedPayload) {
   return Profile.findByIdAndUpdate(userId, { $set: { ...updatedPayload } }, { new: true });
 }
 
+async function getUser(userId) {
+  const { Profile } = models;
+  const profile = await Profile.findById(userId);
+  return _.pick(profile, ['firstName', 'lastName', 'image']);
+}
+
 module.exports = {
   fetchNearestWalker,
   updateLocation,
   postNewUser,
   patchUser,
+  getUser,
 };
