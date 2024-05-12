@@ -3,7 +3,8 @@ const { mintToken } = require("../../../util/authentication/index");
 
 async function getUserInfo(userId) {
   const { Profile } = models;
-  return await Profile.findById(userId).lean();
+  return await Profile.findById(userId)
+    .populate("walk.active_with_users").lean();
 }
 
 async function logIn({ displayName, email, photoURL }) {

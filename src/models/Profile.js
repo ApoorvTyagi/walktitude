@@ -51,7 +51,10 @@ const schemaDefinition = {
       default: false,
       index: true,
     },
-    active_with_users: [mongoose.Types.ObjectId],
+    active_with_users: [{
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'Profile',
+    }],
   },
   last_activity: {
     type: Date,
