@@ -6,13 +6,14 @@ const fetchNearestWalker = errorDecorator(async (req, res) => {
   const latitude = Number(req.query.latitude);
   const longitude = Number(req.query.longitude);
   const { userId } = req.headers["x-user-details"];
+  const apiVersion = req.headers["apiversion"];
   const nearestWalkers = await service.fetchNearestWalker(
     userId,
     [longitude, latitude],
     Number(config.APP.NEAREST_WALKER_MAX_DISTANCE_FOR_SEARCH)
   );
   res.send({
-    walkers: nearestWalkers,
+    walkers: apiVersion === "v2" ? [nearestWalkers[0]] : nearestWalkers,
   });
 });
 
