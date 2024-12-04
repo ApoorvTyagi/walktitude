@@ -11,7 +11,7 @@
   "license": "ISC",
   "dependencies": {
     "@hapi/boom": "10.0.1",
-    "axios": "1.6.8",
+    "axios": "1.7.4",
     "config": "3.3.11",
     "cors": "2.8.5",
     "express": "4.19.2",
